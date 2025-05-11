@@ -26,19 +26,28 @@ import numpy as np
 
 app = Flask(__name__)
 
-# Dummy model function
+# Dummy model function (untuk detect.html)
 def dummy_predict(features):
-    # Contoh: jika rata-rata nilai input lebih besar dari 4, prediksi "diabetes"
     if np.mean(features) > 4:
         return "Positive (Diabetes Detected)"
     else:
         return "Negative (No Diabetes)"
 
-@app.route('/', methods=['GET', 'POST'])
-def index():
+# Route untuk Home (index.html)
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+# Route untuk About (about.html)
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+# Route untuk Diabetes Detection (detect.html)
+@app.route('/detect', methods=['GET', 'POST'])
+def detect():
     result = None
     if request.method == 'POST':
-        # Get each field by its correct name
         input_data = [
             float(request.form['pregnancies']),
             float(request.form['glucose']),
@@ -50,7 +59,7 @@ def index():
             float(request.form['age'])
         ]
         result = dummy_predict(input_data)
-    return render_template('detect.html', prediction=result) 
+    return render_template('detect.html', prediction=result)
 
 if __name__ == '__main__':
     app.run(debug=True)

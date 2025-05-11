@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diabetes AI | Your Health Companion</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #3b82f6 0%, #10b981 100%);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Header/Navigation -->
+  <header class="fixed w-full bg-white shadow-sm z-50">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="text-2xl font-bold text-gray-800">
+          <span class="text-blue-600">Diabetes</span>AI
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a href="about.html" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">About</a>
+          <a href="detect.html" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Detect</a>
+          <a href="#features" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Features</a>
+          <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Contact</a>
+        </nav>
+        <button class="md:hidden focus:outline-none">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pt-32 pb-20 text-white">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+      <div class="md:w-1/2 mb-10 md:mb-0">
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">Smart Diabetes Monitoring Powered by AI</h1>
+        <p class="text-xl mb-8 opacity-90">Get accurate predictions and personalized insights to manage your diabetes risk effectively.</p>
+        <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+          <a href="detect.html" class="bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold text-center hover:bg-gray-100 transition-colors shadow-lg">
+            <i class="fas fa-search mr-2"></i> Try Detection Tool
+          </a>
+          <a href="about.html" class="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold text-center hover:bg-white hover:bg-opacity-10 transition-colors">
+            <i class="fas fa-info-circle mr-2"></i> Learn More
+          </a>
+        </div>
+      </div>
+      <div class="md:w-1/2 flex justify-center">
+        <img src="https://cdn-icons-png.flaticon.com/512/2920/2920322.png" alt="Health Monitoring Illustration" class="w-full max-w-md">
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-16">Key Features</h2>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="bg-gray-50 p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+            <i class="fas fa-brain text-blue-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-800">AI-Powered Analysis</h3>
+          <p class="text-gray-600">Our advanced algorithms analyze your health data to provide accurate diabetes risk assessment.</p>
+        </div>
+        
+        <div class="bg-gray-50 p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+            <i class="fas fa-user-md text-green-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-800">Personalized Insights</h3>
+          <p class="text-gray-600">Receive customized recommendations based on your unique health profile and risk factors.</p>
+        </div>
+        
+        <div class="bg-gray-50 p-8 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+            <i class="fas fa-chart-line text-purple-600 text-2xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-800">Progress Tracking</h3>
+          <p class="text-gray-600">Monitor your health improvements over time with our intuitive dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-6">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-16">How It Works</h2>
+      <div class="flex flex-col md:flex-row items-center justify-between">
+        <div class="md:w-1/2 mb-10 md:mb-0">
+          <div class="flex mb-8">
+            <div class="flex-shrink-0 mr-6">
+              <div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600 font-bold">1</div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2 text-gray-800">Input Your Data</h3>
+              <p class="text-gray-600">Enter your health metrics like blood sugar levels, BMI, and family history.</p>
+            </div>
+          </div>
+          <div class="flex mb-8">
+            <div class="flex-shrink-0 mr-6">
+              <div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-100 text-green-600 font-bold">2</div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2 text-gray-800">AI Analysis</h3>
+              <p class="text-gray-600">Our system processes your data using machine learning algorithms.</p>
+            </div>
+          </div>
+          <div class="flex">
+            <div class="flex-shrink-0 mr-6">
+              <div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-100 text-purple-600 font-bold">3</div>
+            </div>
+            <div>
+              <h3 class="text-xl font-semibold mb-2 text-gray-800">Get Results</h3>
+              <p class="text-gray-600">Receive your personalized risk assessment and recommendations.</p>
+            </div>
+          </div>
+        </div>
+        <div class="md:w-1/2 flex justify-center">
+          <img src="https://cdn-icons-png.flaticon.com/512/4052/4052984.png" alt="How it works illustration" class="w-full max-w-md">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-16 bg-blue-600 text-white">
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="text-3xl font-bold mb-6">Ready to Take Control of Your Health?</h2>
+      <p class="text-xl mb-8 max-w-2xl mx-auto">Start monitoring your diabetes risk today with our AI-powered tool.</p>
+      <a href="detect.html" class="inline-block bg-white text-blue-600 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg">
+        <i class="fas fa-play mr-2"></i> Get Started Now
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4"><span class="text-blue-400">Diabetes</span>AI</h3>
+          <p class="text-gray-400">Your health companion powered by artificial intelligence.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-chevron-right mr-2 text-xs"></i> About</a></li>
+            <li><a href="detect.html" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-chevron-right mr-2 text-xs"></i> Detect</a></li>
+            <li><a href="#features" class="text-gray-400 hover:text-white transition-colors"><i class="fas fa-chevron-right mr-2 text-xs"></i> Features</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Contact</h4>
+          <ul class="space-y-2 text-gray-400">
+            <li><i class="fas fa-envelope mr-2"></i> info@diabetesai.com</li>
+            <li><i class="fas fa-phone mr-2"></i> +1 (555) 123-4567</li>
+            <li><i class="fas fa-map-marker-alt mr-2"></i> San Francisco, CA</li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-4">Follow Us</h4>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook-f text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin-in text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-instagram text-xl"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2023 DiabetesAI. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

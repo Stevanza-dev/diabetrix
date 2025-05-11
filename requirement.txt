@@ -1,0 +1,14 @@
+Cara menjalankan projek app.py
+
+Buka terminal (new terminal di vs code)\
+
+1. Masuk ke venv (virtual enviroment)
+python -m venv venv
+venv\Scripts\activate
+
+2. Install library
+pip install flask joblib numpy
+pip install xgboost
+
+3. Jalankan python
+python app.py

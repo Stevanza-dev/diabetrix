@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Diabetes AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Header/Navigation -->
+  <header class="fixed w-full bg-white shadow-sm z-50">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="text-2xl font-bold text-gray-800">
+          <a href="index.html" class="hover:text-blue-600 transition-colors">
+            <span class="text-blue-600">Diabetes</span>AI
+          </a>
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a href="about.html" class="text-blue-600 font-medium">About</a>
+          <a href="detect.html" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Detect</a>
+          <a href="index.html#features" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Features</a>
+          <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Contact</a>
+        </nav>
+        <button class="md:hidden focus:outline-none">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="pt-32 pb-20">
+    <div class="container mx-auto px-6">
+      <!-- Project Background -->
+      <section class="max-w-4xl mx-auto mb-20">
+        <div class="text-center mb-12">
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-lightbulb text-yellow-500 mr-3"></i>About Our Project
+          </h1>
+          <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+        </div>
+        
+        <div class="bg-white p-8 rounded-xl shadow-sm">
+          <div class="flex flex-col md:flex-row">
+            <div class="md:w-1/2 mb-8 md:mb-0 md:pr-8">
+              <h2 class="text-2xl font-semibold text-gray-800 mb-4">Our Mission</h2>
+              <p class="text-gray-600 mb-6">
+                Diabetes AI was born from a simple idea: leveraging artificial intelligence to make diabetes risk assessment more accessible and accurate. 
+                With over 422 million people worldwide living with diabetes, early detection can make a life-changing difference.
+              </p>
+              <p class="text-gray-600">
+                Our team combines expertise in machine learning, healthcare, and software development to create a tool that empowers individuals to take control of their health.
+              </p>
+            </div>
+            <div class="md:w-1/2">
+              <h2 class="text-2xl font-semibold text-gray-800 mb-4">How It Works</h2>
+              <div class="space-y-4">
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 bg-blue-100 rounded-full p-2 mr-4">
+                    <i class="fas fa-database text-blue-500"></i>
+                  </div>
+                  <p class="text-gray-600">We trained our AI model on thousands of anonymized health records to identify key diabetes risk factors.</p>
+                </div>
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 bg-green-100 rounded-full p-2 mr-4">
+                    <i class="fas fa-chart-line text-green-500"></i>
+                  </div>
+                  <p class="text-gray-600">The algorithm analyzes your input against these patterns to assess your diabetes risk.</p>
+                </div>
+                <div class="flex items-start">
+                  <div class="flex-shrink-0 bg-purple-100 rounded-full p-2 mr-4">
+                    <i class="fas fa-user-shield text-purple-500"></i>
+                  </div>
+                  <p class="text-gray-600">All data processing happens securely in your browser - we never store your personal health information.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Team Section -->
+      <section>
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-users text-blue-500 mr-3"></i>Meet Our Team
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">Four passionate individuals working together to make healthcare more accessible through technology</p>
+          <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <!-- Team Member 1 -->
+          <div class="team-card bg-white p-6 rounded-xl shadow-md transition-all duration-300">
+            <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-blue-50 flex items-center justify-center overflow-hidden">
+              <i class="fas fa-user-circle text-blue-300 text-6xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-center text-gray-800">John Doe</h3>
+            <p class="text-blue-600 text-center mb-3">Machine Learning Engineer</p>
+            <p class="text-gray-600 text-sm text-center mb-4">
+              Developed the predictive algorithms powering our diabetes risk assessment.
+            </p>
+            <div class="flex justify-center space-x-3">
+              <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fab fa-github"></i></a>
+              <a href="#" class="text-gray-400 hover:text-blue-500"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+
+          <!-- Team Member 2 -->
+          <div class="team-card bg-white p-6 rounded-xl shadow-md transition-all duration-300">
+            <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-green-50 flex items-center justify-center overflow-hidden">
+              <i class="fas fa-user-circle text-green-300 text-6xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-center text-gray-800">Jane Smith</h3>
+            <p class="text-green-600 text-center mb-3">Frontend Developer</p>
+            <p class="text-gray-600 text-sm text-center mb-4">
+              Designed and implemented the user interface and experience.
+            </p>
+            <div class="flex justify-center space-x-3">
+              <a href="#" class="text-gray-400 hover:text-green-500"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-gray-400 hover:text-green-500"><i class="fab fa-github"></i></a>
+              <a href="#" class="text-gray-400 hover:text-green-500"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+
+          <!-- Team Member 3 -->
+          <div class="team-card bg-white p-6 rounded-xl shadow-md transition-all duration-300">
+            <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-purple-50 flex items-center justify-center overflow-hidden">
+              <i class="fas fa-user-circle text-purple-300 text-6xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-center text-gray-800">Alex Johnson</h3>
+            <p class="text-purple-600 text-center mb-3">Healthcare Consultant</p>
+            <p class="text-gray-600 text-sm text-center mb-4">
+              Ensured medical accuracy and clinical relevance of our tool.
+            </p>
+            <div class="flex justify-center space-x-3">
+              <a href="#" class="text-gray-400 hover:text-purple-500"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-gray-400 hover:text-purple-500"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+
+          <!-- Team Member 4 -->
+          <div class="team-card bg-white p-6 rounded-xl shadow-md transition-all duration-300">
+            <div class="w-32 h-32 mx-auto mb-4 rounded-full bg-yellow-50 flex items-center justify-center overflow-hidden">
+              <i class="fas fa-user-circle text-yellow-300 text-6xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-center text-gray-800">Sarah Williams</h3>
+            <p class="text-yellow-600 text-center mb-3">Backend Developer</p>
+            <p class="text-gray-600 text-sm text-center mb-4">
+              Built the server infrastructure and API integrations.
+            </p>
+            <div class="flex justify-center space-x-3">
+              <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fab fa-github"></i></a>
+              <a href="#" class="text-gray-400 hover:text-yellow-500"><i class="fas fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Values Section -->
+      <section class="max-w-4xl mx-auto mt-20">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-800 mb-4">
+            <i class="fas fa-heart text-red-500 mr-3"></i>Our Core Values
+          </h2>
+          <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-shield-alt text-blue-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-gray-800">Privacy First</h3>
+            <p class="text-gray-600">Your health data belongs to you. We process everything locally whenever possible.</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-bullseye text-green-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-gray-800">Accuracy</h3>
+            <p class="text-gray-600">We continuously improve our models to provide the most reliable results.</p>
+          </div>
+          
+          <div class="bg-white p-6 rounded-xl shadow-sm text-center">
+            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-hands-helping text-purple-500 text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-3 text-gray-800">Accessibility</h3>
+            <p class="text-gray-600">Making healthcare technology available to everyone, regardless of technical skill.</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <div class="text-xl font-bold">
+            <span class="text-blue-400">Diabetes</span>AI
+          </div>
+          <p class="text-gray-400 text-sm mt-1">Your health companion powered by AI</p>
+        </div>
+        <div class="flex space-x-6">
+          <a href="about.html" class="text-gray-400 hover:text-white transition-colors">About</a>
+          <a href="detect.html" class="text-gray-400 hover:text-white transition-colors">Detect</a>
+          <a href="index.html#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+        </div>
+      </div>
+      <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm">
+        <p>&copy; 2023 DiabetesAI. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

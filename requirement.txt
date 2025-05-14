@@ -9,6 +9,9 @@ venv\Scripts\activate
 2. Install library
 pip install flask joblib numpy
 pip install xgboost
+pip install pandas
+pip install scikit-learn or pip pip install sklearn
+pip install openpyxl
 
 3. Jalankan python
 python app.py

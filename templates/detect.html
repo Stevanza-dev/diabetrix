@@ -132,13 +132,13 @@
           </form>
 
           {% if prediction %}
-          <div class="mt-8 p-6 rounded-lg {% if prediction == 'Positive' %}bg-red-50 text-red-800{% else %}bg-green-50 text-green-800{% endif %}">
+          <div class="mt-8 p-6 rounded-lg {% if 'Positive' in prediction %}bg-red-50 text-red-800{% else %}bg-green-50 text-green-800{% endif %}">
             <div class="flex items-center">
-              <i class="fas {% if prediction == 'Positive' %}fa-exclamation-triangle{% else %}fa-check-circle{% endif %} text-2xl mr-3"></i>
+              <i class="fas {% if 'Positive' in prediction %}fa-exclamation-triangle{% else %}fa-check-circle{% endif %} text-2xl mr-3"></i>
               <div>
                 <h3 class="font-bold text-lg">Result: {{ prediction }}</h3>
                 <p class="mt-1 text-sm">
-                  {% if prediction == 'Positive' %}
+                  {% if 'Positive' in prediction %}
                   Our analysis indicates a risk of diabetes. Please consult with a healthcare professional.
                   {% else %}
                   Our analysis indicates low risk of diabetes. Maintain a healthy lifestyle.

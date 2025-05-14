@@ -14,4 +14,5 @@ pip install scikit-learn or pip pip install sklearn
 pip install openpyxl
 
 3. Jalankan python
+pyhton train_model.py
 python app.py

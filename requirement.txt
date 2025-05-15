@@ -1,6 +1,6 @@
 Cara menjalankan projek app.py
 
-Buka terminal (new terminal di vs code)\
+Buka terminal (new terminal di vs code)
 
 1. Masuk ke venv (virtual enviroment)
 python -m venv venv
@@ -14,5 +14,5 @@ pip install scikit-learn or pip pip install sklearn
 pip install openpyxl
 
 3. Jalankan python
-pyhton train_model.py
+pyhton train_model.py (Tidak perlu)
 python app.py

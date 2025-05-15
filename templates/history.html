@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>History | Diabetrix</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body class="bg-gray-50">
+  <!-- Header/Navigation -->
+  <header class="fixed w-full bg-white shadow-sm z-50">
+    <div class="container mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="text-2xl font-bold text-gray-800">
+          <a href="/" class="hover:text-blue-600 transition-colors">
+            <span class="text-blue-600">Diabet</span>rix
+          </a>
+        </div>
+        <nav class="hidden md:flex space-x-8">
+          <a href="/" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Home</a>
+          <a href="/about" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">About</a>
+          <a href="/detect" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Detect</a>
+          <a href="/#features" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Features</a>
+          <a href="/#contact" class="text-gray-600 hover:text-blue-600 transition-colors font-medium">Contact</a>
+          <a href="/history" class="text-blue-600 font-medium">History</a>
+        </nav>
+        <button class="md:hidden focus:outline-none">
+          <i class="fas fa-bars text-gray-600 text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+<!-- Main Content -->
+<main class="pt-32 pb-20 min-h-screen">
+  <div class="container mx-auto px-6">
+    <div class="max-w-4xl mx-auto">
+      <!-- History Header with Filter Controls -->
+      <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-4 md:mb-0">
+          <i class="fas fa-history text-blue-500 mr-2"></i>Riwayat Pengecekan
+        </h1>
+        <div class="flex space-x-2">
+          <div class="relative">
+            <input type="date" id="date-filter" class="px-4 py-2 border rounded-lg focus:ring-blue-500 focus:border-blue-500">
+            <button onclick="filterByDate()" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition">
+              <i class="fas fa-filter mr-1"></i>Filter
+            </button>
+          </div>
+          <button onclick="exportToCSV()" class="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition">
+            <i class="fas fa-file-export mr-1"></i>Export
+          </button>
+        </div>
+      </div>
+
+      <!-- Stats Summary Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div class="bg-blue-50 p-4 rounded-lg shadow">
+          <h3 class="text-sm font-medium text-blue-800">Total Pengecekan</h3>
+          <p class="text-2xl font-bold text-blue-600">{{ history|length }}</p>
+        </div>
+        <div class="bg-red-50 p-4 rounded-lg shadow">
+          <h3 class="text-sm font-medium text-red-800">Risiko Tinggi</h3>
+          <p class="text-2xl font-bold text-red-600">{{ high_risk }}</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg shadow">
+          <h3 class="text-sm font-medium text-green-800">Risiko Rendah</h3>
+          <p class="text-2xl font-bold text-green-600">{{ low_risk }}</p>
+        </div>
+      </div>
+
+      <!-- Enhanced History Table -->
+      <div class="bg-white rounded-xl shadow-md overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200">
+            <thead class="bg-gray-50">
+              <tr>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kehamilan</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Glukosa</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tek. Darah</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ket. Kulit</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Insulin</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">BMI</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Riwayat</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Usia</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hasil</th>
+                <th class="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
+              </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                {% for record in history %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record['check_date'] }}
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record['pregnancies'] }}
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record['glucose'] }} mg/dL
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record['blood_pressure'] }} mmHg
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record['skin_thickness'] }} mm
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record['insulin'] }} μU/mL
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ "%.1f"|format(record['bmi']) }}
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ "%.3f"|format(record['pedigree']) }}
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
+                    {{ record['age'] }} tahun
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium {% if 'Positive' in record['prediction'] %}text-red-600{% else %}text-green-600{% endif %}">
+                    {{ record['prediction'] }}
+                    </td>
+                    <td class="px-4 py-4 whitespace-nowrap text-sm font-medium">
+                    <button onclick="deleteRecord('{{ record['id']}}')" class="text-red-600 hover:text-red-900">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                    </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8 w-full fixed bottom-0 left-0 z-40">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="text-xl font-bold">
+                        <span class="text-blue-400">Diabet</span>rix
+                    </div>
+                    <p class="text-gray-400 text-sm mt-1">Your health companion powered by AI</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="/about" class="text-gray-400 hover:text-white transition-colors">About</a>
+                    <a href="/detect" class="text-gray-400 hover:text-white transition-colors">Detect</a>
+                    <a href="/#contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-6 pt-6 text-center text-gray-400 text-sm">
+                <p>&copy; 2025 Diabetrix. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Filter by date
+        function filterByDate() {
+        const date = document.getElementById('date-filter').value;
+        if(date) {
+            window.location.href = `/history?date=${date}`;
+        }
+        }
+
+        // Export to CSV
+        function exportToCSV() {
+        // Implement CSV export logic
+        alert('Fitur export akan diimplementasikan!');
+        }
+
+        // Delete record
+        function deleteRecord(id) {
+        if(confirm('Apakah Anda yakin ingin menghapus riwayat ini?')) {
+            fetch(`/delete-history/${id}`, { method: 'DELETE' })
+            .then(response => {
+                if(response.ok) {
+                location.reload();
+                }
+            });
+        }
+        }
+    </script>
+
+</body>
+</html>

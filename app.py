@@ -2,12 +2,36 @@ from flask import Flask, render_template, request
 import joblib
 import numpy as np
 import pandas as pd
+import sqlite3
+from datetime import datetime
 
 app = Flask(__name__)
 
+# Setup database
+def init_db():
+    conn = sqlite3.connect('diabetes_history.db')
+    c = conn.cursor()
+    c.execute('''CREATE TABLE IF NOT EXISTS history
+                 (id INTEGER PRIMARY KEY AUTOINCREMENT,
+                  user_ip TEXT,
+                  pregnancies INTEGER,
+                  glucose INTEGER,
+                  blood_pressure INTEGER,
+                  skin_thickness INTEGER,
+                  insulin INTEGER,
+                  bmi REAL,
+                  pedigree REAL,
+                  age INTEGER,
+                  prediction TEXT,
+                  check_date TIMESTAMP)''')
+    conn.commit()
+    conn.close()
+
+init_db()
+
 # --- Configuration ---
-MODEL_PATH = 'diabetes_ensemble_model.joblib'
-SCALER_PATH = 'scaler.joblib'
+MODEL_PATH = 'model/diabetes_ensemble_model.joblib'
+SCALER_PATH = 'model/scaler.joblib'
 
 # --- Load Model and Scaler ---
 print("Loading trained model and scaler...")
@@ -25,14 +49,20 @@ except Exception as e:
     scaler = None
 
 # Define the expected feature order (must match training)
-FEATURE_NAMES = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']
+FEATURE_NAMES = ['Pregnancies', 'Glucose', 'BloodPressure', 'SkinThickness', 
+                 'Insulin', 'BMI', 'DiabetesPedigreeFunction', 'Age']
 
-# --- Dummy Predict Function from appold.py ---
+# --- Dummy Predict Function ---
 def dummy_predict(features):
     if np.mean(features) > 4:
         return "Positive (Diabetes Detected)"
     else:
         return "Negative (No Diabetes)"
+    
+# --- Custom Filter ---
+@app.template_filter('contains')
+def contains_filter(s, substr):
+    return substr in s if s else False
 
 # --- Routes ---
 @app.route('/')
@@ -43,79 +73,151 @@ def index():
 def about():
     return render_template('about.html')
 
+@app.route('/history')
+def show_history():
+    date_filter = request.args.get('date')
+    conn = sqlite3.connect('diabetes_history.db')
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    if date_filter:
+        # Filter berdasarkan tanggal (format: YYYY-MM-DD)
+        c.execute('''SELECT * FROM history 
+                     WHERE user_ip = ? AND DATE(check_date) = ?
+                     ORDER BY check_date DESC''',
+                  (request.remote_addr, date_filter))
+    else:
+        c.execute('''SELECT * FROM history 
+                     WHERE user_ip = ? 
+                     ORDER BY check_date DESC''',
+                  (request.remote_addr,))
+    rows = c.fetchall()
+    history_data = []
+    for row in rows:
+        row_dict = dict(row)
+        # Ubah check_date ke format tanggal yang diinginkan
+        if row_dict['check_date']:
+            try:
+                dt = datetime.fromisoformat(row_dict['check_date'])
+                row_dict['check_date'] = dt.strftime('%d-%m-%Y %H:%M')
+            except Exception:
+                pass  # biarkan string aslinya jika gagal
+        history_data.append(row_dict)
+    conn.close()
+    
+    # Hitung di backend
+    high_risk = sum(1 for r in history_data if 'Positive' in r['prediction'])
+    low_risk = sum(1 for r in history_data if 'Negative' in r['prediction'])
+    
+    return render_template('history.html',
+                         history=history_data,
+                         high_risk=high_risk,
+                         low_risk=low_risk)
+
 @app.route('/detect', methods=['GET', 'POST'])
 def detect():
     prediction = ""
+    # Dictionary untuk menyimpan semua nilai form
+    form_data = {
+        'pregnancies': '',
+        'glucose': '',
+        'blood_pressure': '',
+        'skin_thickness': '',
+        'insulin': '',
+        'bmi': '',
+        'pedigree': '',
+        'age': ''
+    }
+
     if request.method == 'POST':
         try:
-            required_fields = ['pregnancies', 'glucose', 'blood_pressure', 'skin_thickness', 'insulin', 'bmi', 'pedigree', 'age']
-            
-            # Periksa apakah semua kolom ada dan tidak kosong
-            for field in required_fields:
-                if field not in request.form or not request.form[field].strip():
-                    prediction = f"Kolom kosong atau tidak ada: {field}"
-                    return render_template('detect.html', prediction=prediction)
-            
-            # Ambil data dari form
-            pregnancies = request.form['pregnancies']
-            glucose = request.form['glucose']
-            blood_pressure = request.form['blood_pressure']
-            skin_thickness = request.form['skin_thickness']
-            insulin = request.form['insulin']
-            bmi = request.form['bmi']
-            pedigree = request.form['pedigree']
-            age = request.form['age']
+            # Simpan semua nilai form yang di-submit
+            for field in form_data.keys():
+                form_data[field] = request.form.get(field, '')
 
+            # Validasi: Pastikan semua field terisi
+            for field, value in form_data.items():
+                if not value.strip():
+                    prediction = f"Error: Field {field.replace('_', ' ')} cannot be empty"
+                    return render_template('detect.html', 
+                                         prediction=prediction,
+                                         form_data=form_data)
+
+            # Konversi ke float dengan handling error
             def safe_float(value, field_name):
                 try:
-                    # Ganti koma dengan titik untuk mendukung format desimal lokal
-                    value = value.replace(',', '.')
-                    return float(value)
+                    return float(value.replace(',', '.'))
                 except ValueError:
-                    raise ValueError(f"Input tidak valid untuk {field_name}. Harap masukkan nilai numerik.")
-            
-            # Konversi setiap kolom ke float dengan validasi
-            pregnancies = safe_float(pregnancies, 'Jumlah Kehamilan')
-            glucose = safe_float(glucose, 'Glukosa')
-            blood_pressure = safe_float(blood_pressure, 'Tekanan Darah')
-            skin_thickness = safe_float(skin_thickness, 'Ketebalan Kulit')
-            insulin = safe_float(insulin, 'Insulin')
-            bmi = safe_float(bmi, 'BMI')
-            pedigree = safe_float(pedigree, 'Fungsi Pedigree Diabetes')
-            age = safe_float(age, 'Usia')
+                    raise ValueError(f"Invalid input for {field_name}. Please enter a number.")
 
-            # Create a list of input features in the correct order
-            input_features_list = [pregnancies, glucose, blood_pressure, skin_thickness, insulin, bmi, pedigree, age]
+            input_features = [
+                safe_float(form_data['pregnancies'], 'Pregnancies'),
+                safe_float(form_data['glucose'], 'Glucose'),
+                safe_float(form_data['blood_pressure'], 'Blood Pressure'),
+                safe_float(form_data['skin_thickness'], 'Skin Thickness'),
+                safe_float(form_data['insulin'], 'Insulin'),
+                safe_float(form_data['bmi'], 'BMI'),
+                safe_float(form_data['pedigree'], 'Diabetes Pedigree'),
+                safe_float(form_data['age'], 'Age')
+            ]
 
-            if model is not None and scaler is not None:
-                # Use the machine learning model
-                # Create a DataFrame with correct feature names
-                input_df = pd.DataFrame([input_features_list], columns=FEATURE_NAMES)
-                # Scale the features
+            # Lakukan prediksi
+            if model and scaler:
+                input_df = pd.DataFrame([input_features], columns=FEATURE_NAMES)
                 scaled_features = scaler.transform(input_df)
-                # Make prediction
-                prediction = model.predict(scaled_features)
-                probability = model.predict_proba(scaled_features)
-                # Interpret prediction
-                if prediction[0] == 1:
-                    result = "Positive (Diabetes Detected)"
+                pred = model.predict(scaled_features)[0]
+                proba = model.predict_proba(scaled_features)[0]
+                
+                if pred == 1:
+                    prediction = f"Positive (Diabetes Detected) - Confidence: {proba[1]*100:.1f}%"
                 else:
-                    result = "Negative (No Diabetes)"
-                prediction = f"Prediction using ML model: {result}. Confidence for Diabetes: {probability[0][1]*100:.2f}%. Confidence for No Diabetes: {probability[0][0]*100:.2f}%."
+                    prediction = f"Negative (No Diabetes) - Confidence: {proba[0]*100:.1f}%"
             else:
-                # Use the dummy predict function
-                result = dummy_predict(input_features_list)
-                prediction = f"Prediction using dummy model: {result} (Note: ML model failed to load, using backup method.)"
+                prediction = dummy_predict(input_features) + " (Using dummy model)"
 
         except ValueError as e:
-            prediction = str(e)  # Tampilkan pesan kesalahan spesifik
+            prediction = str(e)
         except Exception as e:
-            prediction = f"Terjadi kesalahan saat prediksi: {str(e)}"
-            print(f"Kesalahan saat prediksi: {e}")  # Log the error for debugging
+            prediction = f"Prediction error: {str(e)}"
+            print(f"Error during prediction: {e}")
 
-        return render_template('detect.html', prediction = prediction)
+        # Simpan ke database
+        conn = sqlite3.connect('diabetes_history.db')
+        c = conn.cursor()
+        c.execute('''INSERT INTO history 
+                     (user_ip, pregnancies, glucose, blood_pressure, 
+                      skin_thickness, insulin, bmi, pedigree, age, 
+                      prediction, check_date)
+                     VALUES (?,?,?,?,?,?,?,?,?,?,?)''',
+                     (request.remote_addr,
+                      form_data['pregnancies'],
+                      form_data['glucose'],
+                      form_data['blood_pressure'],
+                      form_data['skin_thickness'],
+                      form_data['insulin'],
+                      form_data['bmi'],
+                      form_data['pedigree'],
+                      form_data['age'],
+                      prediction,
+                      datetime.now()))
+        conn.commit()
+        conn.close()
 
-    return render_template('detect.html', prediction = prediction)
+        return render_template('detect.html', 
+                             prediction=prediction,
+                             form_data=form_data)
+
+    return render_template('detect.html', 
+                         prediction=prediction,
+                         form_data=form_data)
+
+@app.route('/delete-history/<int:id>', methods=['DELETE'])
+def delete_history(id):
+    conn = sqlite3.connect('diabetes_history.db')
+    c = conn.cursor()
+    c.execute('DELETE FROM history WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    return '', 204
 
 if __name__ == '__main__':
     app.run(debug=True)

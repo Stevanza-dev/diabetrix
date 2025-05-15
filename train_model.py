@@ -10,8 +10,8 @@ import joblib # Using joblib instead of pickle for scikit-learn objects
 
 # --- Configuration ---
 DATASET_PATH = 'Diabetes.xlsx'
-MODEL_FILENAME = 'diabetes_ensemble_model.joblib'
-SCALER_FILENAME = 'scaler.joblib'
+MODEL_FILENAME = 'model/diabetes_ensemble_model.joblib'
+SCALER_FILENAME = 'model/scaler.joblib'
 TEST_SIZE = 0.2
 RANDOM_STATE = 42
 

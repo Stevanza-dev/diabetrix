@@ -146,7 +146,7 @@ Diabetrix adalah aplikasi web berbasis Flask yang memanfaatkan kecerdasan buatan
   [Instagram](https://www.instagram.com/sabitsna_/)
 
 - **Bhanu Rizqi Marzaki**  
-  *ML Model Developer*  
+  *Machine Learning Engineer*  
   [Instagram](https://www.instagram.com/nolluiymon/)
 
 - **Faizal Rifky Abdilah**  
